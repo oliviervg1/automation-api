@@ -23,7 +23,7 @@
 	<distributionManagement>
 		<repository>
 		    <id>com.pi.automation</id>
-		    <name>automatio-api</name>
+		    <name>automation-api</name>
 		    <url>git:releases://git@github.com:oliviervg1/automation-api.git</url>
 		</repository>
 	</distributionManagement>
