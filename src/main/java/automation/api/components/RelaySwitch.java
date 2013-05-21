@@ -42,10 +42,10 @@ public class RelaySwitch implements Switch {
     
     public String getState() {
     	if (powerSwitch.isHigh()) {
-    		return "On";
+    		return "on";
     	}
     	else {
-    		return "Off";
+    		return "off";
     	}
     }
 }
