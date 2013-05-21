@@ -22,8 +22,8 @@
 	<!-- Distribute to Github -->
 	<distributionManagement>
 		<repository>
-		    <id>your-repo-id</id>
-		    <name>Your Repo Name</name>
+		    <id>com.pi.automation</id>
+		    <name>automation-api</name>
 		    <url>git:releases://git@github.com:oliviervg1/automation-api.git</url>
 		</repository>
 	</distributionManagement>
