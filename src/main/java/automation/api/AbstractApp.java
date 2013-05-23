@@ -15,11 +15,12 @@ import automation.api.interfaces.ConnectedDevice;
 
 abstract public class AbstractApp implements ConnectedApp {
 
+	private static final long serialVersionUID = -2701397336301506962L;
 	protected ConnectedDevice device;
 	protected ArrayList<String> models;
 	private URL url;
 	private QName qname;
-	private Method method;
+	private transient Method method;
 
 	public AbstractApp() {
 		device = null;
