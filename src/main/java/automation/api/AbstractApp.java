@@ -1,7 +1,7 @@
 package automation.api;
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Method;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +10,7 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import javax.xml.ws.WebServiceException;
 
+import automation.api.components.NsLookupService;
 import automation.api.interfaces.ConnectedApp;
 import automation.api.interfaces.ConnectedDevice;
 
@@ -17,6 +18,7 @@ abstract public class AbstractApp implements ConnectedApp {
 
 	protected ConnectedDevice device;
 	protected ArrayList<String> models;
+	private String deviceName;
 	private URL url;
 	private QName qname;
 	private Method method;
@@ -25,6 +27,7 @@ abstract public class AbstractApp implements ConnectedApp {
 		device = null;
 		url = null;
 		qname = null;
+		deviceName = null;
 		onStartup();
 	}
 	
@@ -35,14 +38,20 @@ abstract public class AbstractApp implements ConnectedApp {
 	abstract public HashMap<String,Object> getModels() throws Exception;
 	
 	@Override
-	final public void connectToRemoteDevice(String WS_URL, QName qname) {
+	final public void connectToRemoteDevice(String deviceName, QName qname) {	
+		this.deviceName = deviceName;
 		try {
-			this.url = new URL(WS_URL);
+			this.url = new URL(NsLookupService.findDeviceIp(deviceName));
 			this.qname = qname;
-		} catch (MalformedURLException e) {
+		} catch (IOException e) {
 			this.url = null;
 			this.qname = null;
-		}
+		} 
+	}
+	
+	@Override
+	final public void reloadDevice() {
+		connectToRemoteDevice(this.deviceName, this.qname);
 	}
 	
 	@Override
