@@ -10,5 +10,4 @@ public interface ConnectedApp {
 	boolean isDeviceAvailable();
 	Object invokeMethod(String methodName) throws Exception;
 	Object invokeMethod(String methodName, Object[] parametersArray) throws Exception;
-	void reloadDevice();
 }
