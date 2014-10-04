@@ -67,9 +67,9 @@ public class JMPlayer {
     private BufferedReader mplayerOutErr;
 
     public JMPlayer(String mplayerPath, String mplayerOptions, String youtubeCookieFile) {
-    	this.mplayerPath = mplayerPath;
-    	this.mplayerOptions = mplayerOptions + " -cache 2048 -cache-min 5";
-    	this.youtubeCookieFile = youtubeCookieFile;
+        this.mplayerPath = mplayerPath;
+        this.mplayerOptions = mplayerOptions + " -cache 2048 -cache-min 5";
+        this.youtubeCookieFile = youtubeCookieFile;
     }
 
     /** @return the path to the MPlayer executable. */
@@ -89,12 +89,12 @@ public class JMPlayer {
         if (mplayerProcess == null) {
             // start MPlayer as an external process
             String command;
-        	if (file.contains("www.youtube.com")) {
-            	String youtubeParser = youtubeCookieFile + " $(" + mplayerPath + "youtube-dl -f 22/18 -g --cookies " + youtubeCookieFile + " " + file + ")";
-        		String mplayerCommand = mplayerPath + "mplayer " + mplayerOptions + " -cookies -cookies-file";
-        		command = mplayerCommand + " " + youtubeParser;
-        	} else {
-            	command = mplayerPath + "mplayer " + mplayerOptions + " " + file;
+            if (file.contains("www.youtube.com")) {
+                String youtubeParser = youtubeCookieFile + " $(" + mplayerPath + "youtube-dl -f 22/18 -g --cookies " + youtubeCookieFile + " " + file + ")";
+                String mplayerCommand = mplayerPath + "mplayer " + mplayerOptions + " -cookies -cookies-file";
+                command = mplayerCommand + " " + youtubeParser;
+            } else {
+                command = mplayerPath + "mplayer " + mplayerOptions + " " + file;
             }
             logger.info("Starting MPlayer process: " + command);
             mplayerProcess = Runtime.getRuntime().exec(new String[] {"bash", "-c", command});
@@ -112,14 +112,14 @@ public class JMPlayer {
             mplayerIn = new PrintStream(mplayerProcess.getOutputStream());
         } else {
             // If youtube video - restart MPlayer (avoids having to inject stream with youtube-dl)
-        	if (file.contains("www.youtube.com")) {
-            	close();
-            	open(file);
+            if (file.contains("www.youtube.com")) {
+                close();
+                open(file);
             }
-        	// Else just open file normally
-        	else {
-	        	execute("loadfile " + file + " 0");
-        	}
+            // Else just open file normally
+            else {
+                execute("loadfile " + file + " 0");
+            }
         }
         // wait to start playing
         waitForAnswer("Starting playback...");
@@ -169,12 +169,12 @@ public class JMPlayer {
     public void setVolume(float volume) {
         setProperty("volume", volume);
     }
-    
+
     public void setFullScreen(boolean value) {
         if (value) {
-        	execute("vo_fullscreen " + 1);
+            execute("vo_fullscreen " + 1);
         } else {
-        	execute("vo_fullscreen " + 0);
+            execute("vo_fullscreen " + 0);
         }
     }
 

@@ -9,8 +9,6 @@ import javax.jws.soap.SOAPBinding.Style;
 @WebService
 @SOAPBinding(style = Style.RPC)
 public interface ConnectedDevice {
-	
-	@WebMethod(operationName="noParameters") Object invokeMethod(String methodName) throws NoSuchMethodException;
-	@WebMethod(operationName="withParameters") Object invokeMethod(String methodName, Object[] parametersArray) throws NoSuchMethodException;
-	
+    @WebMethod(operationName="noParameters") Object invokeMethod(String methodName) throws NoSuchMethodException;
+    @WebMethod(operationName="withParameters") Object invokeMethod(String methodName, Object[] parametersArray) throws NoSuchMethodException;
 }
